@@ -16,7 +16,7 @@
 #    {{{fo_chmod}}} -- change file permission after it is generated
 #    <<<<hash:>>> --- hash loading directives
 #    additional_params_file -- parameter file for substitution variables with name, small description and default values 
-#                 --- add:  list(....) as predefined list for additional parameters <--- to be added 
+#           update 1.2.1 : adding new parameter --> list(....) as predefined list for additional parameters
 # supporting tssml functions :
 #     1. define : declare stack variable 
 #     2. skip   : do nothing and return nothing 
