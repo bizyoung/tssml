@@ -2,8 +2,8 @@
 # Package Name: tssml - Template Substitution Script Marker Language  
 #        Usage: It is to implement TSSML in processing text template files 
 #         Note: 
-#      Version: 1.2 -- Feb, 11, 2021
-#       update: 1.2.1 -- May 2,2021 
+#      Version: 1.2 -- Feb, 11, 2021 
+#       update: 1.2.1 -- May 2, 2021
 #      Author : Guangyu Yang 
 # supporting tssml features:
 #    <<<substitution variable>>>,  ###variable###, {{{function}}}, 
@@ -16,7 +16,7 @@
 #    {{{fo_chmod}}} -- change file permission after it is generated
 #    <<<<hash:>>> --- hash loading directives
 #    additional_params_file -- parameter file for substitution variables with name, small description and default values 
-#           update 1.2.1 : adding new parameter --> list(....) as predefined list for additional parameters
+#                 --- add:  list(....) as predefined list for additional parameters <--- to be added 
 # supporting tssml functions :
 #     1. define : declare stack variable 
 #     2. skip   : do nothing and return nothing 
@@ -38,6 +38,7 @@
 #    22. range :  create array based on range of numbers or string list 
 #    23. get_args   
 #    24. contains : check exisitence of array or hash elements 
+#    25. fields :  get fields from a string with delimiter defined 
 ### notes 
 #**********************************************************************************************************************************
 package tssml;
@@ -2098,6 +2099,31 @@ sub __run_func{
             return 1 if defined $pouch->{$checker};
         }
         return 0;        
+    }elsif ($f eq 'fields'){
+            my @pars=split(/\s+/,$p);
+            my $fdef=$pars[0];
+            my $dlm=$pars[1];
+            my $dlm2=$pars[2];
+            my $dat=join " ", @pars[3 .. $#pars];
+            
+            my @arr=();
+            my @farr=split(',',$fdef);
+            if ($dlm eq '[space]'){
+                @arr=split(/\s+/,$dat);
+            }else{
+                @arr=split($dlm,$dat);
+            }
+            my $str='';
+            foreach my $i (@farr){
+                $str.=$arr[$i];
+                if ($dlm2 eq '[space]'){
+                    $str.=' ';
+                }else{
+                    $str.=$dlm2;
+                }
+            }
+            chop($str);
+            return $str;
     }elsif ($f=~/flat_list(_f|\s*)/){#{{{flat_list}}}
         my $typ=$1;
         if ($typ eq '_f'){
