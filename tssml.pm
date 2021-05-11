@@ -1,5 +1,5 @@
 #**********************************************************************************************************************************
-# Package Name: tssml - Template Substitution Script Marker Language  
+# Package Name: tssml - Template Substitution Script Marker Language   
 #        Usage: It is to implement TSSML in processing text template files 
 #         Note: 
 #      Version: 1.2 -- Feb, 11, 2021 
